@@ -2,31 +2,30 @@ class Animal:
 
     alive = []
 
-    def __init__(self, name: str, health: int = 100, hidden: bool = False):
+    def __init__(self, name: str, health: int = 100,
+                 hidden: bool = False) -> None:
         self.health = health
         self.name = name
         self.hidden = hidden
         Animal.alive.append(self)
 
-    def __repr__(self):
-        return f'{{Name: {self.name}, Health: {self.health}, Hidden: {self.hidden}}}'
-
+    def __repr__(self) -> dict:
+        return (f"{{Name: {self.name}, Health: {self.health},"
+                f" Hidden: {self.hidden}}}")
 
 
 class Herbivore(Animal):
-    def hide(self):
-        if self.hidden == False:
+    def hide(self) -> bool:
+        if self.hidden is False:
             self.hidden = True
         else:
             self.hidden = False
 
 
-
-
 class Carnivore(Animal):
-    def bite(self, other):
+    def bite(self, other: Animal) -> None:
         if not isinstance(other, Carnivore):
-            if other.hidden == False:
+            if other.hidden is False:
                 other.health -= 50
             if other.health <= 0:
                 Animal.alive.remove(other)
